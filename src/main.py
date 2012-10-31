@@ -72,7 +72,7 @@ DEFAULT_TOKEN_STRING = "A15418B0780578F336DC61C6A0F465CA4191163EE1CEF72E848B5C83
 """ The default token string to be used in case
 none is provided """
 
-def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sandbox = True):
+def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sandbox = True, wait = False):
     # creates the socket that will be used for the
     # communication with the remote host and
     _socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -120,7 +120,7 @@ def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", s
     # runs the select operation in it to check if there's read
     # data available for reading
     _socket.setblocking(0)
-    ready = select.select([_socket], [], [], 3.0)
+    ready = wait and select.select([_socket], [], [], 3.0) or ((), (), ())
 
     # in case there are socket with read data available
     # must read it in the proper way, otherwise sets the
