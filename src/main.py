@@ -59,6 +59,14 @@ SANDBOX_PORT = 2195
 """ The port of the apn service to be used when
 in sandbox mode """
 
+KEY_FILE = "apn_key.pem"
+""" The path to the (private) key file to be used
+in the encrypted communication with the server """
+
+CERT_FILE = "apn_cert.pem"
+""" The path to the certificate file to be used
+in the encrypted communication with the server """
+
 DEFAULT_TOKEN_STRING = "A15418B0780578F336DC61C6A0F465CA4191163EE1CEF72E848B5C83251D2429"
 """ The default token string to be used in case
 none is provided """
@@ -73,8 +81,8 @@ def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", s
     _socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     _socket = ssl.wrap_socket(
         _socket,
-        keyfile = "apn_key.pem",
-        certfile = "apn_cert.pem",
+        keyfile = KEY_FILE,
+        certfile = CERT_FILE,
         server_side = False
     )
 
