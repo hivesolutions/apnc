@@ -38,6 +38,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 import ssl
+import json
 import socket
 import struct
 import select
@@ -71,10 +72,6 @@ DEFAULT_TOKEN_STRING = "A15418B0780578F336DC61C6A0F465CA4191163EE1CEF72E848B5C83
 """ The default token string to be used in case
 none is provided """
 
-# TODO 1. Exportar a private key associada par pk12
-# TODO 2. Converter a private key de pk12 para pem -> "openssl pkcs12 -in pkey.p12 -out pkey.pem -nodes -clcerts"
-# TODO 3. Pegar no certificado e conveter o mesmo para pem file -> "openssl x509 -in aps_developer_identity.cer -inform der -out PushChatCert.pem"
-
 def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sandbox = True):
     # creates the socket that will be used for the
     # communication with the remote host and
@@ -95,9 +92,20 @@ def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", s
     # string of binary data for the message
     token = binascii.unhexlify(token_string)
 
+    # creates the message structure using with the
+    # message (string) as the alert and then converts
+    # it into a json format (payload)
+    message_s = {
+       "aps" : {
+            "alert" : message
+        }
+    }
+    payload = json.dumps(message_s)
+
+    # sets the command with the zero value (simplified)
+    # then calculates the token and payload lengths
     command = 0
     token_length = len(token)
-    payload = "{\"aps\":{\"alert\":\"You've got mail\"}}"
     payload_length = len(payload)
 
     # creates the initial template for message creation by
