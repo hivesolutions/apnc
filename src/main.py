@@ -68,11 +68,11 @@ CERT_FILE = "apn_cert.pem"
 """ The path to the certificate file to be used
 in the encrypted communication with the server """
 
-DEFAULT_TOKEN_STRING = "A15418B0780578F336DC61C6A0F465CA4191163EE1CEF72E848B5C83251D2429"
+DEFAULT_TOKEN_STRING = "12007EF74A0E8518EAB44CA4922B49FD4002462AFB37D7D9890A7E02D81FD24B"
 """ The default token string to be used in case
 none is provided """
 
-def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sandbox = True, wait = False):
+def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sound = "default", badge = 0, sandbox = True, wait = False):
     # creates the socket that will be used for the
     # communication with the remote host and
     _socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -97,7 +97,9 @@ def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", s
     # it into a json format (payload)
     message_s = {
        "aps" : {
-            "alert" : message
+            "alert" : message,
+            "sound" : sound,
+            "badge" : badge
         }
     }
     payload = json.dumps(message_s)
