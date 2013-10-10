@@ -70,7 +70,11 @@ in the encrypted communication with the server """
 
 DEFAULT_TOKEN_STRING = "12007EF74A0E8518EAB44CA4922B49FD4002462AFB37D7D9890A7E02D81FD24B"
 """ The default token string to be used in case
-none is provided """
+none is provided, this token value should be used
+as the basic identifier of the device, this also
+includes the security information offered by the
+process of authentication between the phone and
+the apple's apn server """
 
 def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sound = "default", badge = 0, sandbox = True, wait = False):
     # creates the socket that will be used for the
