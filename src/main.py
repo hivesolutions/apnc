@@ -76,7 +76,14 @@ includes the security information offered by the
 process of authentication between the phone and
 the apple's apn server """
 
-def send_message(token_string = DEFAULT_TOKEN_STRING, message = "Hello World", sound = "default", badge = 0, sandbox = True, wait = False):
+def send_message(
+    token_string = DEFAULT_TOKEN_STRING,
+    message = "Hello World",
+    sound = "default",
+    badge = 0,
+    sandbox = True,
+    wait = False
+):
     # creates the socket that will be used for the
     # communication with the remote host and
     _socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
