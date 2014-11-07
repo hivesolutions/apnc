@@ -3,6 +3,7 @@
 	<name>apnc</name>
 	<comment></comment>
 	<projects>
+		<project>legacy</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

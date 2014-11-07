@@ -44,6 +44,8 @@ import struct
 import select
 import binascii
 
+import legacy
+
 HOST = "gateway.push.apple.com"
 """ The host of the apn service to be used when
 in production mode """
@@ -106,14 +108,19 @@ def send_message(
     # creates the message structure using with the
     # message (string) as the alert and then converts
     # it into a json format (payload)
-    message_s = {
-       "aps" : {
-            "alert" : message,
-            "sound" : sound,
-            "badge" : badge
-        }
-    }
+    message_s = dict(
+       aps = dict(
+            alert = message,
+            sound = sound,
+            badge = badge
+        )
+    )
     payload = json.dumps(message_s)
+
+    # verifies if the generated payload in unicode based
+    # if that's the case encodes it sing the default encoding
+    is_unicode = type(payload) == legacy.UNICODE
+    if is_unicode: payload = payload.encode("utf-8")
 
     # sets the command with the zero value (simplified)
     # then calculates the token and payload lengths
@@ -139,7 +146,7 @@ def send_message(
     # must read it in the proper way, otherwise sets the
     # data string with an empty value
     if ready[0]: data = _socket.recv(4096)
-    else: data = ""
+    else: data = b""
 
     # closes the socket (nothing more left to be don
     # for this notification)
@@ -148,7 +155,7 @@ def send_message(
     # prints the response to the just sent request value
     # this should be an empty string in case everything
     # went fine with the request
-    print "Response: '%s'" % data
+    print("Response: '%s'" % data)
 
 if __name__ == "__main__":
     send_message()
