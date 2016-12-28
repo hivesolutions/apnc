@@ -159,3 +159,5 @@ def send_message(
 
 if __name__ == "__main__":
     send_message()
+else:
+    __path__ = []
