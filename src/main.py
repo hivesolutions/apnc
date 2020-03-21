@@ -47,19 +47,19 @@ import binascii
 import legacy
 
 HOST = "gateway.push.apple.com"
-""" The host of the apn service to be used when
+""" The host of the APN service to be used when
 in production mode """
 
 PORT = 2195
-""" The port of the apn service to be used when
+""" The port of the APN service to be used when
 in sandbox mode """
 
 SANDBOX_HOST = "gateway.sandbox.push.apple.com"
-""" The host of the apn service to be used when
+""" The host of the APN service to be used when
 in sandbox mode """
 
 SANDBOX_PORT = 2195
-""" The port of the apn service to be used when
+""" The port of the APN service to be used when
 in sandbox mode """
 
 KEY_FILE = "apn_key.pem"
@@ -76,7 +76,7 @@ none is provided, this token value should be used
 as the basic identifier of the device, this also
 includes the security information offered by the
 process of authentication between the phone and
-the apple's apn server """
+the apple's APN server """
 
 def send_message(
     token_string = DEFAULT_TOKEN_STRING,
